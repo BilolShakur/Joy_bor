@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "136126691726",
+    "project_id": "joy-bor-eb54f",
+    "storage_bucket": "joy-bor-eb54f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136126691726:android:1257dc6639fda45e9bccdf",
+        "android_client_info": {
+          "package_name": "com.example.joy_bor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136126691726-kt9q20buhiqtekulelbf4ar6q79oj00t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.joy_bor",
+            "certificate_hash": "0a9394c1a369facb9c37ecd4bd1dd127b4ef8bca"
+          }
+        },
+        {
+          "client_id": "136126691726-lhtgvpq5ameo8ea5tdbd4kq4lodm1587.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQXghIRMTNCLvbXg7O_H3LCGEGJ19uNdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136126691726-lhtgvpq5ameo8ea5tdbd4kq4lodm1587.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "136126691726-s1o650c5b4fkv2iitrku67bq01iap6m0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.joyBor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
