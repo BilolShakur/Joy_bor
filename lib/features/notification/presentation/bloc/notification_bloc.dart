@@ -24,7 +24,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       try {
         final notifications = await getAllNotifications();
         emit(NotificationLoaded(notifications));
-        // Show local notification for each notification (demo: just show the latest)
+
         if (flutterLocalNotificationsPlugin != null &&
             notifications.isNotEmpty) {
           final latest = notifications.first;
@@ -61,6 +61,22 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       emit(NotificationLoading());
       try {
         await postNotification(event.notification);
+        // Show local notification immediately after posting
+        if (flutterLocalNotificationsPlugin != null) {
+          await flutterLocalNotificationsPlugin!.show(
+            event.notification.id ?? 0,
+            event.notification.title,
+            event.notification.message,
+            const NotificationDetails(
+              android: AndroidNotificationDetails(
+                'default_channel',
+                'Notifications',
+                importance: Importance.max,
+                priority: Priority.high,
+              ),
+            ),
+          );
+        }
         add(FetchAllNotifications());
       } catch (e) {
         emit(NotificationError(e.toString()));
