@@ -1,22 +1,29 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Blocs and Data Layers
+
+import '/auth/screens/signup_screen.dart';
+import '/auth/screens/homePage.dart';
+
+
+import '/core/gemini_service.dart/chat_view_model.dart';
+import '/core/gemini_service.dart/chat_screen.dart';
+
+
 import 'package:joy_bor/features/place/data/datasource/product_remote_datasource_impl.dart';
 import 'package:joy_bor/features/place/data/repositories/product_repository_impl.dart';
 import 'package:joy_bor/features/place/domain/usecases/get_all_products.dart';
 import 'package:joy_bor/features/place/presentation/bloc/product_bloc/product_bloc.dart';
 import 'package:joy_bor/features/place/presentation/bloc/search_bloc/search_bloc.dart';
 
-// UI Pages
-import 'auth/screens/login_screen.dart';
-import 'auth/screens/signup_screen.dart';
-import 'package:joy_bor/features/place/presentation/pages/home_page.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  Gemini.init(apiKey: 'AIzaSyDz2U1DC4qdgEwrwDSeZTxCeSxgYFbRbEo');
 
   final prefs = await SharedPreferences.getInstance();
   final token = prefs.getString('token');
@@ -26,16 +33,14 @@ void main() async {
   final repository = ProductRepositoryImpl(remoteDatasource);
   final getAllProducts = GetAllProducts(repository);
 
-  runApp(
-    MyApp(
-      isLoggedIn: token != null,
-      getAllProducts: getAllProducts,
-      repository: repository,
-    ),
-  );
+  runApp(MyApp(
+    isLoggedIn: token != null,
+    getAllProducts: getAllProducts,
+    repository: repository,
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final bool isLoggedIn;
   final GetAllProducts getAllProducts;
   final ProductRepositoryImpl repository;
@@ -48,49 +53,53 @@ class MyApp extends StatelessWidget {
   });
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode _themeMode = ThemeMode.light;
+
+  void _toggleTheme(bool isDark) {
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ChatViewModel()),
         BlocProvider<ProductBloc>(
-          create: (_) => ProductBloc(getAllProducts)..add(LoadProductsEvent()),
+          create: (_) =>
+              ProductBloc(widget.getAllProducts)..add(LoadProductsEvent()),
         ),
-        BlocProvider<SearchBloc>(create: (_) => SearchBloc(repository)),
+        BlocProvider<SearchBloc>(
+          create: (_) => SearchBloc(widget.repository),
+        ),
       ],
       child: MaterialApp(
         title: 'JoyBor',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        initialRoute: isLoggedIn ? '/home' : '/',
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: _themeMode,
+        home: widget.isLoggedIn
+            ? ChatScreen(
+                onThemeToggle: _toggleTheme,
+                isDarkMode: _themeMode == ThemeMode.dark,
+              )
+            : const SignUpScreen(),
+
         routes: {
-          '/': (context) => LoginScreen(),
           '/signup': (context) => const SignUpScreen(),
-          '/home': (context) => const HomePageWithLogout(),
+          '/home': (context) => const Homepage(),
+          '/chat': (context) => ChatScreen(
+                onThemeToggle: _toggleTheme,
+                isDarkMode: _themeMode == ThemeMode.dark,
+              ),
         },
       ),
-    );
-  }
-}
-
-class HomePageWithLogout extends StatelessWidget {
-  const HomePageWithLogout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('JoyBor Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.remove('token');
-              Navigator.pushReplacementNamed(context, '/');
-            },
-          ),
-        ],
-      ),
-      body: const HomePage(), // your actual home page UI
     );
   }
 }

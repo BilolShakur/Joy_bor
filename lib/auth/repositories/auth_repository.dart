@@ -3,119 +3,131 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
-  final String baseUrl = 'http://13.232.21.244:3000/api';
+  final String baseUrl = "http://13.232.21.244:3000/api";
 
-  /// 📩 Emailga OTP yuborish (signup uchun)
-  Future<bool> sendOtp(String email) async {
-    final url = Uri.parse('$baseUrl/users/send-otp');
+  /// 1. Email ro'yxatdan o‘tganmi — tekshiradi
+  Future<bool> isRegistered(String email) async {
     try {
+      final url = Uri.parse('$baseUrl/auth/check-register');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email}),
       );
-      print('📩 sendOtp response: ${response.statusCode} - ${response.body}');
-      return response.statusCode == 200 || response.statusCode == 201;
-    } catch (e) {
-      print('❌ sendOtp error: $e');
-      return false;
-    }
-  }
 
-  /// 🟢 Ro'yxatdan o'tish (Sign Up)
-  Future<bool> signUpUser({
-    required String fullName,
-    required String email,
-    required String password,
-  }) async {
-    final url = Uri.parse('$baseUrl/auth/log-up-user');
-    try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'full_name': fullName,
-          'email': email,
-          'password': password,
-          'confirm_password': password, // ✅ TO‘G‘RI nomlanish
-        }),
-      );
+      print("check-register status: ${response.statusCode}");
+      print("check-register body: ${response.body}");
 
-      print('📤 STATUS: ${response.statusCode}');
-      print('📤 BODY: ${response.body}');
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return true;
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['isExist'] ?? false;
       } else {
-        final body = jsonDecode(response.body);
-        print('❌ Ro‘yxatdan o‘tishda xatolik: ${body['message']}');
         return false;
       }
     } catch (e) {
-      print('❌ signUpUser exception: $e');
+      print("isRegistered Exception: $e");
       return false;
     }
   }
 
-  /// ✅ OTP orqali faollashtirish
-  Future<bool> activate({
-    required String fullName,
-    required String email,
-    required String password,
-    required String confirmPassword,
-    required String otp,
-  }) async {
-    final url = Uri.parse('$baseUrl/users/activate');
+  /// 2. OTP yuboradi
+  Future<bool> sendOtp(String email) async {
     try {
+      final url = Uri.parse('$baseUrl/auth/send-otp');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'full_name': fullName,
-          'email': email,
-          'password': password,
-          'confirm_password': confirmPassword, // ✅ mos yozilgan
-          'otp': otp,
-        }),
+        body: jsonEncode({'email': email}),
       );
 
-      print('✅ activate response: ${response.statusCode} - ${response.body}');
-      return response.statusCode == 200 || response.statusCode == 201;
+      print("sendOtp status: ${response.statusCode}");
+      print("sendOtp body: ${response.body}");
+
+      return response.statusCode == 201 || response.statusCode == 200;
     } catch (e) {
-      print('❌ activate exception: $e');
+      print("sendOtp Exception: $e");
       return false;
     }
   }
 
-  /// 🔐 Login qilish
-  Future<bool> login(String email, String password) async {
-    final url = Uri.parse('$baseUrl/auth/log-in-user');
+  /// 3. OTP'ni tekshiradi va tokenni saqlaydi
+  Future<bool> verifyOtp({required String email, required String otp}) async {
+    print("----------------------------------------------------------------");
+    print(otp);
+    print(email);
+    print("----------------------------------------------------------------");
     try {
+      final url = Uri.parse('$baseUrl/auth/verify-otp');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email, 'otp': otp}),
+      );
+
+      print("verifyOtp status: ${response.statusCode}");
+      print("verifyOtp body: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        final token = data['accessToken'];
+        print('Token: ${data['accessToken']}');
+
+        if (token != null) {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('token', token);
+          print("Token saqlandi: $token");
+          return true;
+        } else {
+          print("Token null chiqdi");
+        }
+      }
+      return false;
+    } catch (e) {
+      print("verifyOtp Exception: $e");
+      return false;
+    }
+  }
+
+  /// 4. Login funksiyasi
+  Future<bool> login(String email, String password) async {
+    try {
+      final url = Uri.parse('$baseUrl/auth/login');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
 
-      print('🔐 login response: ${response.statusCode} - ${response.body}');
+      print("login status: ${response.statusCode}");
+      print("login body: ${response.body}");
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        final token = data['token'];
+        final token = data['access_token'];
+
         if (token != null) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
-          print('✅ Token saqlandi: $token');
+          print("Login token saqlandi: $token");
           return true;
-        } else {
-          print('❌ Token mavjud emas');
-          return false;
         }
       }
       return false;
     } catch (e) {
-      print('❌ login error: $e');
+      print("login Exception: $e");
       return false;
+    }
+  }
+
+  /// 5. Tokenni olish
+  Future<String?> getToken() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getString('token');
+    } catch (e) {
+      print("getToken Exception: $e");
+      return null;
     }
   }
 }

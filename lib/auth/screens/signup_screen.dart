@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../repositories/auth_repository.dart';
 import 'otpScreen.dart';
+import '/auth/screens/homePage.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -10,55 +11,51 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   bool isLoading = false;
 
   @override
   void dispose() {
-    nameController.dispose();
     emailController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
 
-  Future<void> _handleSignUp() async {
-    final name = nameController.text.trim();
+  Future<void> _handleContinue() async {
     final email = emailController.text.trim();
-    final password = passwordController.text.trim();
 
-    if (name.isEmpty || email.isEmpty || password.isEmpty) {
-      _showMessage("Iltimos, barcha maydonlarni to‘ldiring.");
+    if (email.isEmpty) {
+      _showMessage("Iltimos, email kiriting.");
       return;
     }
 
     setState(() => isLoading = true);
 
-    // Foydalanuvchini ro'yxatdan o'tkazish
-    final isSignedUp = await AuthRepository().signUpUser(
-      fullName: name,
-      email: email,
-      password: password,
-    );
+    try {
+      final isRegistered = await AuthRepository().isRegistered(email);
+
+      if (isRegistered) {
+        _showMessage("Xush kelibsiz! Email topildi.");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => Homepage()),
+        );
+      } else {
+        final isSent = await AuthRepository().sendOtp(email);
+        if (isSent) {
+          _showMessage("OTP yuborildi!");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => OtpScreen(email: email)),
+          );
+        } else {
+          _showMessage("OTP yuborishda xatolik.");
+        }
+      }
+    } catch (e) {
+      _showMessage("Xatolik yuz berdi: $e");
+    }
 
     setState(() => isLoading = false);
-
-    if (isSignedUp) {
-      _showMessage("OTP yuborildi!");
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => OtpScreen(
-            fullName: name,
-            email: email,
-            password: password,
-          ),
-        ),
-      );
-    } else {
-      _showMessage("Bu email allaqachon ro‘yxatdan o‘tgan.");
-    }
   }
 
   void _showMessage(String msg) {
@@ -68,90 +65,107 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: ListView(
-          children: [
-            const SizedBox(height: 40),
-            IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+      body: Stack(
+        children: [
+          // Background image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/Ellipse.png', 
+              fit: BoxFit.cover,
             ),
-            const SizedBox(height: 10),
-            const Text(
-              "Create Your Account",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
-            ),
-            const SizedBox(height: 20),
+          ),
 
-            const Text("Full Name", style: TextStyle(color: Colors.white70)),
-            const SizedBox(height: 4),
-            TextField(
-              controller: nameController,
-              style: const TextStyle(color: Colors.white),
-              decoration: _inputDecoration("Enter your name"),
-            ),
-
-            const SizedBox(height: 16),
-            const Text("Email", style: TextStyle(color: Colors.white70)),
-            const SizedBox(height: 4),
-            TextField(
-              controller: emailController,
-              style: const TextStyle(color: Colors.white),
-              decoration: _inputDecoration("Enter your email"),
-            ),
-
-            const SizedBox(height: 16),
-            const Text("Password", style: TextStyle(color: Colors.white70)),
-            const SizedBox(height: 4),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              style: const TextStyle(color: Colors.white),
-              decoration: _inputDecoration("Enter your password"),
-            ),
-
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: isLoading ? null : _handleSignUp,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFFC727),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-              child: isLoading
-                  ? const CircularProgressIndicator(color: Colors.black)
-                  : const Text("Sign Up", style: TextStyle(color: Colors.black)),
-            ),
-
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("Already have an account? ", style: TextStyle(color: Colors.white60)),
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: const Text("Sign In", style: TextStyle(color: Color(0xFFFFC727))),
+          // Black gradient overlay
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black.withOpacity(0.8), Colors.black.withOpacity(0.6)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
+              ),
+            ),
+          ),
+
+          // Foreground content
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ListView(
+              children: [
+                const SizedBox(height: 80),
+                // Logo
+                Center(
+                  child: RichText(
+                    text: const TextSpan(
+                      text: 'trav',
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+                      children: [
+                        TextSpan(
+                          text: 'e',
+                          style: TextStyle(color: Color(0xFFFFC727), fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: 'la',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+
+                const Text(
+                  "Email address",
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: _inputDecoration("Enter your email"),
+                ),
+                const SizedBox(height: 24),
+
+                ElevatedButton(
+                  onPressed: isLoading ? null : _handleContinue,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFFC727),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.black)
+                      : const Text("Sign in", style: TextStyle(color: Colors.black)),
+                ),
+
+                const SizedBox(height: 40),
+
+                Center(
+                  child: Text.rich(
+                    TextSpan(
+                      text: "By signing up you agree to our ",
+                      style: const TextStyle(color: Colors.white70, fontSize: 13),
+                      children: [
+                        TextSpan(
+                          text: "Terms",
+                          style: TextStyle(color: Color(0xFFFFC727)),
+                        ),
+                        TextSpan(text: " and "),
+                        TextSpan(
+                          text: "Conditions of Use",
+                          style: TextStyle(color: Color(0xFFFFC727)),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                )
               ],
             ),
-
-            const SizedBox(height: 24),
-            const Text.rich(
-              TextSpan(
-                text: "By signing up you agree to our ",
-                children: [
-                  TextSpan(text: "Terms ", style: TextStyle(color: Color(0xFFFFC727))),
-                  TextSpan(text: "and "),
-                  TextSpan(text: "Conditions of Use", style: TextStyle(color: Color(0xFFFFC727))),
-                ],
-              ),
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white54),
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
