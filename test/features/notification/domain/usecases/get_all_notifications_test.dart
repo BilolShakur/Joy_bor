@@ -64,10 +64,10 @@ void main() {
       mockRepository.getAllNotifications(),
     ).thenAnswer((_) async => notifications);
 
-    // act
+
     final result = await usecase();
 
-    // assert
+
     expect(result, notifications);
     verify(mockRepository.getAllNotifications());
     verifyNoMoreInteractions(mockRepository);

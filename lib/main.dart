@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joy_bor/features/notification/presentation/pages/notification_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:io';
+import 'package:permission_handler/permission_handler.dart';
 
 // Blocs and Data Layers
 import 'package:joy_bor/features/place/data/datasource/product_remote_datasource_impl.dart';
@@ -26,7 +29,7 @@ import 'package:joy_bor/features/place/presentation/pages/home_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
+  // Local notifications setup
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   const AndroidInitializationSettings initializationSettingsAndroid =
@@ -36,6 +39,22 @@ void main() async {
   );
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
+  if (Platform.isAndroid) {
+    await Permission.notification.request();
+  } else if (Platform.isIOS) {
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin
+        >()
+        ?.requestPermissions(alert: true, badge: true, sound: true);
+  } else if (Platform.isMacOS) {
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          MacOSFlutterLocalNotificationsPlugin
+        >()
+        ?.requestPermissions(alert: true, badge: true, sound: true);
+  }
+
   final prefs = await SharedPreferences.getInstance();
   final token = prefs.getString('token');
 
@@ -44,7 +63,6 @@ void main() async {
   final repository = ProductRepositoryImpl(remoteDatasource);
   final getAllProducts = GetAllProducts(repository);
 
-  // Notification feature dependencies
   final notificationRemoteDatasource = NotificationRemoteDataSourceImpl(dio);
   final notificationRepository = NotificationRepositoryImpl(
     notificationRemoteDatasource,
@@ -109,7 +127,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark(),
         initialRoute: isLoggedIn ? '/home' : '/',
         routes: {
-          '/': (context) => LoginScreen(),
+          '/': (context) => NotificationScreen(),
           '/signup': (context) => const SignUpScreen(),
           '/home': (context) => const HomePageWithLogout(),
         },

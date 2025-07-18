@@ -62,10 +62,10 @@ void main() {
       mockRepository.postNotification(notification),
     ).thenAnswer((_) async => Future.value());
 
-    // act
+
     await usecase(notification);
 
-    // assert
+
     verify(mockRepository.postNotification(notification));
     verifyNoMoreInteractions(mockRepository);
   });
