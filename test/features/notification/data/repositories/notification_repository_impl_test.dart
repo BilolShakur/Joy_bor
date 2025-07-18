@@ -41,7 +41,7 @@ void main() {
   test(
     'should return list of NotificationEntity from remote data source',
     () async {
-      // arrange
+
       final notificationJson = {
         'id': 1,
         'user_id': 1,
@@ -56,10 +56,10 @@ void main() {
         mockRemoteDataSource.getAllNotifications(),
       ).thenAnswer((_) async => [notificationJson]);
 
-      // act
+
       final result = await repository.getAllNotifications();
 
-      // assert
+
       expect(result, isA<List<NotificationEntity>>());
       expect(result.first.title, 'Test');
       verify(mockRemoteDataSource.getAllNotifications());
