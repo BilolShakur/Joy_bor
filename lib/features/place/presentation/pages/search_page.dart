@@ -7,6 +7,7 @@ import 'package:joy_bor/features/place/presentation/widgets/search_app_bar.dart'
 import 'package:joy_bor/features/place/presentation/widgets/search_field.dart';
 import 'package:joy_bor/features/place/presentation/widgets/search_results.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'search_history_cubit.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -17,40 +18,15 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _controller = TextEditingController();
-  List<String> lastSearches = [];
 
   @override
   void initState() {
     super.initState();
-    _loadLastSearches();
+    context.read<SearchHistoryCubit>().loadLastSearches();
     _controller.addListener(() {
       final query = _controller.text;
       context.read<SearchBloc>().add(SearchQueryChanged(query));
     });
-  }
-
-  Future<void> _loadLastSearches() async {
-    final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getStringList('last_searches');
-    if (saved != null) {
-      setState(() => lastSearches = saved);
-    }
-  }
-
-  Future<void> _saveSearchQuery(String query) async {
-    if (query.trim().isEmpty) return;
-    setState(() {
-      lastSearches.remove(query);
-      lastSearches.insert(0, query);
-    });
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('last_searches', lastSearches);
-  }
-
-  Future<void> _deleteSearchQuery(int index) async {
-    setState(() => lastSearches.removeAt(index));
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('last_searches', lastSearches);
   }
 
   @override
@@ -74,13 +50,19 @@ class _SearchPageState extends State<SearchPage> {
                   child: BlocBuilder<SearchBloc, SearchState>(
                     builder: (context, state) {
                       if (_controller.text.isEmpty) {
-                        return LastSearchList(
-                          lastSearches: lastSearches,
-                          onDelete: _deleteSearchQuery,
-                          onTap: (query) {
-                            _controller.text = query;
-                            context.read<SearchBloc>().add(
-                              SearchQueryChanged(query),
+                        return BlocBuilder<SearchHistoryCubit, List<String>>(
+                          builder: (context, lastSearches) {
+                            return LastSearchList(
+                              lastSearches: lastSearches,
+                              onDelete: (index) => context
+                                  .read<SearchHistoryCubit>()
+                                  .deleteSearchQuery(index),
+                              onTap: (query) {
+                                _controller.text = query;
+                                context.read<SearchBloc>().add(
+                                  SearchQueryChanged(query),
+                                );
+                              },
                             );
                           },
                         );
@@ -91,7 +73,9 @@ class _SearchPageState extends State<SearchPage> {
                       } else if (state is SearchLoaded) {
                         return SearchResults(
                           results: state.results,
-                          onTap: (product) => _saveSearchQuery(product.title),
+                          onTap: (product) => context
+                              .read<SearchHistoryCubit>()
+                              .saveSearchQuery(product.title),
                         );
                       } else if (state is SearchError) {
                         return Center(

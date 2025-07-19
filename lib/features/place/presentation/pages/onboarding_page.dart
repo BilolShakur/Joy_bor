@@ -20,7 +20,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
         duration: Duration(milliseconds: 300),
         curve: Curves.ease,
       );
-    } else {}
+    } else {
+      Navigator.pushReplacementNamed(context, '/');
+    }
   }
 
   @override
@@ -32,74 +34,32 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        controller: controller,
-        itemCount: onboardingData.length,
-        onPageChanged: (i) => setState(() => index = i),
-        itemBuilder: (context, i) {
-          final item = onboardingData[i];
-          return Stack(
-            children: [
-              Image.asset(
-                item.image,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: controller,
+                onPageChanged: (i) => setState(() => index = i),
+                itemCount: onboardingData.length,
+                itemBuilder: (context, i) =>
+                    OnboardingScreenData(data: onboardingData[i]),
               ),
-              Positioned(
-                top: 320,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Image.asset(item.bottomfon, fit: BoxFit.cover),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 70),
-                        child: Column(
-                          children: [
-                            Text(
-                              item.title,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Text(
-                              item.subtitle,
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 40),
-                      PageIndicatorWidget(currentIndex: index),
-                      SizedBox(height: 60),
-                      CustomButton(
-                        label: "Skip",
-                        onTap: nextPage,
-                        label2: "Get Started",
-                      ),
-                    ],
-                  ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+              child: ElevatedButton(
+                onPressed: nextPage,
+                child: Text(
+                  index == onboardingData.length - 1 ? 'Get Startd' : 'Next',
                 ),
               ),
-            ],
-          );
-        },
+            ),
+            PageIndicatorWidget(currentIndex: index),
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }

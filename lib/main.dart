@@ -17,15 +17,16 @@ import 'features/notification/domain/usecases/get_notification_by_id.dart';
 import 'features/notification/domain/usecases/post_notification.dart';
 import 'features/notification/presentation/bloc/notification_bloc.dart';
 import 'features/notification/presentation/bloc/notification_event.dart';
+import 'features/place/presentation/pages/sort_cubit.dart';
+import 'features/place/presentation/pages/search_history_cubit.dart';
 
 // UI Pages
-import 'auth/screens/login_screen.dart';
-import 'auth/screens/signup_screen.dart';
+import 'auth/screens/login_page.dart';
+import 'auth/screens/signup_page.dart';
 import 'package:joy_bor/features/place/presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -102,6 +103,8 @@ class MyApp extends StatelessWidget {
             flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
           )..add(FetchAllNotifications()),
         ),
+        BlocProvider<SortCubit>(create: (_) => SortCubit()),
+        BlocProvider<SearchHistoryCubit>(create: (_) => SearchHistoryCubit()),
       ],
       child: MaterialApp(
         title: 'JoyBor',
@@ -111,33 +114,9 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => LoginScreen(),
           '/signup': (context) => const SignUpScreen(),
-          '/home': (context) => const HomePageWithLogout(),
+          '/home': (context) => HomePage(),
         },
       ),
-    );
-  }
-}
-
-class HomePageWithLogout extends StatelessWidget {
-  const HomePageWithLogout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('JoyBor Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.remove('token');
-              Navigator.pushReplacementNamed(context, '/');
-            },
-          ),
-        ],
-      ),
-      body: const HomePage(), // your actual home page UI
     );
   }
 }

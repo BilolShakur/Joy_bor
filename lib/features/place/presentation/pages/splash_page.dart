@@ -3,18 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:joy_bor/core/constants/app_images.dart';
 import 'package:joy_bor/features/place/presentation/pages/onboarding_page.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
-  @override
-  State<SplashPage> createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(Duration(seconds: 2), () {
+  void _navigate(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(
         context,
       ).pushReplacement(MaterialPageRoute(builder: (_) => OnboardingPage()));
@@ -23,6 +16,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => _navigate(context));
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
