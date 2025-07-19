@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:joy_bor/core/constants/app_colors.dart';
-import 'package:joy_bor/core/constants/app_images.dart';
-import 'package:joy_bor/core/widgets/filter_bottom_sheet.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_images.dart';
+import 'filter_bottom_sheet.dart';
 
 class SearchTextField extends StatefulWidget {
   final String hintText;

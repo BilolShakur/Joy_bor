@@ -1,15 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:joy_bor/features/home/presentation/bloc/product_event.dart';
+import 'features/home/presentation/pages/home_page.dart';
+import 'features/auth/presentation/pages/login_page.dart';
+import 'features/auth/presentation/pages/signup_page.dart';
+import 'features/home/data/datasource/product_remote_datasource_impl.dart';
+import 'features/home/data/repositories/product_repository_impl.dart';
+import 'features/home/domain/usecases/get_all_products.dart';
+import 'features/home/presentation/bloc/product_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-// Blocs and Data Layers
-import 'package:joy_bor/features/place/data/datasource/product_remote_datasource_impl.dart';
-import 'package:joy_bor/features/place/data/repositories/product_repository_impl.dart';
-import 'package:joy_bor/features/place/domain/usecases/get_all_products.dart';
-import 'package:joy_bor/features/place/presentation/bloc/product_bloc/product_bloc.dart';
-import 'package:joy_bor/features/place/presentation/bloc/search_bloc/search_bloc.dart';
+import 'features/place/presentation/bloc/search_bloc/search_bloc.dart';
 import 'features/notification/data/datasource/notification_remote_datasource_impl.dart';
 import 'features/notification/data/repositories/notification_repository_impl.dart';
 import 'features/notification/domain/usecases/get_all_notifications.dart';
@@ -19,11 +22,12 @@ import 'features/notification/presentation/bloc/notification_bloc.dart';
 import 'features/notification/presentation/bloc/notification_event.dart';
 import 'features/place/presentation/pages/sort_cubit.dart';
 import 'features/place/presentation/pages/search_history_cubit.dart';
-
-// UI Pages
-import 'auth/screens/login_page.dart';
-import 'auth/screens/signup_page.dart';
-import 'package:joy_bor/features/place/presentation/pages/home_page.dart';
+import 'features/auth/data/auth_repository.dart';
+import 'features/auth/presentation/bloc/signup_cubit.dart';
+import 'features/auth/presentation/bloc/login_cubit.dart';
+import 'features/auth/presentation/bloc/otp_cubit.dart';
+import 'features/on_boarding/screens/splash_page.dart';
+import 'features/on_boarding/screens/onboarding_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -91,6 +95,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<SignUpCubit>(create: (_) => SignUpCubit(AuthRepository())),
+        BlocProvider<LoginCubit>(create: (_) => LoginCubit(AuthRepository())),
+        BlocProvider<OtpCubit>(create: (_) => OtpCubit(AuthRepository())),
         BlocProvider<ProductBloc>(
           create: (_) => ProductBloc(getAllProducts)..add(LoadProductsEvent()),
         ),
@@ -106,16 +113,21 @@ class MyApp extends StatelessWidget {
         BlocProvider<SortCubit>(create: (_) => SortCubit()),
         BlocProvider<SearchHistoryCubit>(create: (_) => SearchHistoryCubit()),
       ],
-      child: MaterialApp(
-        title: 'JoyBor',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        initialRoute: isLoggedIn ? '/home' : '/',
-        routes: {
-          '/': (context) => LoginScreen(),
-          '/signup': (context) => const SignUpScreen(),
-          '/home': (context) => HomePage(),
-        },
+      child: ScreenUtilInit(
+        designSize: const Size(414, 896),
+        child: MaterialApp(
+          title: 'JoyBor',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.dark(),
+          initialRoute: '/splash',
+          routes: {
+            '/splash': (context) => SplashPage(),
+            '/onboarding': (context) => OnboardingPage(),
+            '/': (context) => LoginScreen(),
+            '/signup': (context) => const SignUpScreen(),
+            '/home': (context) => HomePage(),
+          },
+        ),
       ),
     );
   }

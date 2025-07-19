@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:joy_bor/features/place/domain/entities/porduct_entity.dart';
+import '../../domain/entities/product_entity.dart';
 
 class SearchResults extends StatelessWidget {
   final List<ProductEntity> results;
@@ -32,13 +32,12 @@ class SearchResults extends StatelessWidget {
                     width: 60,
                     height: 60,
                     fit: BoxFit.cover,
-                    errorBuilder:
-                        (context, _, __) => Container(
-                          width: 60,
-                          height: 60,
-                          color: Colors.grey,
-                          child: Icon(Icons.image, color: Colors.white),
-                        ),
+                    errorBuilder: (context, _, __) => Container(
+                      width: 60,
+                      height: 60,
+                      color: Colors.grey,
+                      child: Icon(Icons.image, color: Colors.white),
+                    ),
                   ),
                 ),
                 SizedBox(width: 12),

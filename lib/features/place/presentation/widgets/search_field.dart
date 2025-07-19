@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:joy_bor/core/constants/app_colors.dart';
-import 'package:joy_bor/core/constants/app_images.dart';
-import 'package:joy_bor/core/widgets/filter_bottom_sheet.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_images.dart';
+import '../../../../core/widgets/filter_bottom_sheet.dart';
 
 class SearchField extends StatelessWidget {
   final TextEditingController controller;

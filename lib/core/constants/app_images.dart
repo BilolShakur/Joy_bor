@@ -1,7 +1,7 @@
 class AppImages {
-  static const onboarding1 = 'assets/images/onboarding1.png';
-  static const onboarding2 = 'assets/images/onboarding2.png';
-  static const onboarding3 = 'assets/images/onboarding3.png';
+  static const onboarding1 = 'assets/images/on_boarding_1.png';
+  static const onboarding2 = 'assets/images/on_boarding_2.png';
+  static const onboarding3 = 'assets/images/on_boarding_3.png';
   static const splash = 'assets/images/splash.png';
   static const splash2 = 'assets/images/splash2.png';
   static const splash3 = 'assets/images/splash3.png';
@@ -18,4 +18,6 @@ class AppImages {
   static const ballon = 'assets/images/ballon.png';
   static const transparent = 'assets/images/transparent.png';
   static const arrowBackIcon = 'assets/images/arrow_back_icon.png';
+  static const bg = 'assets/images/bg.png';
+  static const logo = 'assets/images/logo.png';
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:joy_bor/core/constants/app_images.dart';
-import 'package:joy_bor/features/place/presentation/bloc/search_bloc/search_bloc.dart';
-import 'package:joy_bor/features/place/presentation/widgets/last_search_list.dart';
-import 'package:joy_bor/features/place/presentation/widgets/search_app_bar.dart';
-import 'package:joy_bor/features/place/presentation/widgets/search_field.dart';
-import 'package:joy_bor/features/place/presentation/widgets/search_results.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/constants/app_images.dart';
+import '../bloc/search_bloc/search_bloc.dart';
+import '../widgets/last_search_list.dart';
+import '../widgets/search_app_bar.dart';
+import '../widgets/search_field.dart';
+import '../widgets/search_results.dart';
 import 'search_history_cubit.dart';
 
 class SearchPage extends StatefulWidget {
@@ -73,9 +72,14 @@ class _SearchPageState extends State<SearchPage> {
                       } else if (state is SearchLoaded) {
                         return SearchResults(
                           results: state.results,
-                          onTap: (product) => context
-                              .read<SearchHistoryCubit>()
-                              .saveSearchQuery(product.title),
+                          onTap: (product) {
+                            final title = product?.title ?? '';
+                            if (title.isNotEmpty) {
+                              context
+                                  .read<SearchHistoryCubit>()
+                                  .saveSearchQuery(title);
+                            }
+                          },
                         );
                       } else if (state is SearchError) {
                         return Center(
@@ -102,4 +106,8 @@ class _SearchPageState extends State<SearchPage> {
     _controller.dispose();
     super.dispose();
   }
+}
+
+extension on Object? {
+  get title => null;
 }

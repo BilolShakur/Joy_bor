@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/usecases/get_all_notifications.dart';
 import '../../domain/usecases/get_notification_by_id.dart';
 import '../../domain/usecases/post_notification.dart';
-import '../../domain/entities/notification_entity.dart';
 import 'notification_event.dart';
 import 'notification_state.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

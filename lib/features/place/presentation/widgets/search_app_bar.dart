@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:joy_bor/core/constants/app_images.dart';
+import '../../../../core/constants/app_images.dart';
 
 class SearchAppBar extends StatelessWidget {
   const SearchAppBar({super.key});

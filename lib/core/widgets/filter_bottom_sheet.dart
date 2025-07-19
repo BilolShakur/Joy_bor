@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:joy_bor/core/constants/app_images.dart';
-import 'package:joy_bor/core/widgets/price_range_slider.dart';
-import 'package:joy_bor/core/widgets/star_reting_item.dart';
+import '../constants/app_images.dart';
+import 'price_range_slider.dart';
+import 'star_reting_item.dart';
 import 'section_title.dart';
 import 'category.dart';
 

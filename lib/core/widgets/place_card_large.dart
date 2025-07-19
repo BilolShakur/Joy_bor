@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
 import 'package:joy_bor/core/constants/app_images.dart';
-import 'package:joy_bor/features/place/domain/entities/porduct_entity.dart';
+import 'package:joy_bor/features/place/domain/entities/product_entity.dart';
 
 class PlaceCardLarge extends StatefulWidget {
   final ProductEntity product;

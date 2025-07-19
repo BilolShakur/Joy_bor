@@ -4,7 +4,9 @@ import 'package:joy_bor/core/constants/app_images.dart';
 import 'package:joy_bor/core/widgets/place_card_large.dart';
 import 'package:joy_bor/core/widgets/search_widget.dart';
 import 'package:joy_bor/core/widgets/sort_toggle.dart';
-import 'package:joy_bor/features/place/presentation/bloc/product_bloc/product_bloc.dart';
+import 'package:joy_bor/features/home/presentation/bloc/product_bloc.dart';
+import 'package:joy_bor/features/home/presentation/bloc/product_state.dart';
+
 import 'package:joy_bor/features/place/presentation/pages/search_page.dart';
 import 'package:joy_bor/features/place/presentation/pages/sort_cubit.dart';
 
