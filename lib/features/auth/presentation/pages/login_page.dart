@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:joy_bor/core/constants/app_images.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/custon_button.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/dont_have_text.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/terms_text.dart';
 
 import '../bloc/login_cubit.dart';
 
@@ -7,7 +12,6 @@ import 'otp_page.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widgets/custom_button.dart';
 import '../../data/auth_repository.dart';
 import '../widgets/custom_textfield.dart';
 
@@ -17,6 +21,12 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final emailController = TextEditingController();
+
+    onSignIn() {
+      //? navige to singin
+      Navigator.pushNamed(context, "/signup");
+    }
+
     return BlocProvider(
       create: (_) => LoginCubit(AuthRepository()),
       child: BlocListener<LoginCubit, LoginState>(
@@ -32,79 +42,85 @@ class LoginScreen extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<LoginCubit, LoginState>(
-          builder: (context, state) {
-            return Scaffold(
-              body: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF000000), Color(0xFF1C1C1C)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+        child: Scaffold(
+          body: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(AppImages.bg, fit: BoxFit.cover),
+              ),
+
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: BlocBuilder<LoginCubit, LoginState>(
+                    builder: (context, state) {
+                      final isLoading = state is LoginLoading;
+
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 36.h),
+                          SizedBox(
+                            height: 44.h,
+                            width: 174.w,
+                            child: Image.asset(AppImages.logo),
+                          ),
+
+                          SizedBox(height: 83.h),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Email address",
+                                style: TextStyle(fontSize: 15.sp),
+                              ),
+                              SizedBox(height: 8.h),
+                              CustomTextField(
+                                controller: emailController,
+                                label: "Email address",
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: 20.h),
+
+                          isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : CustonButton(
+                                  label: "Sign in",
+                                  onTap: () {
+                                    final email = emailController.text.trim();
+                                    if (email.isNotEmpty) {
+                                      context.read<LoginCubit>().login(email);
+                                    } else {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text("Enter your email."),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                          SizedBox(height: 10.h),
+                          DontHaveText(
+                            firstText: "Don't have an account ?",
+                            textbutton: "Sign up here",
+                            ontap: onSignIn,
+                          ),
+                          SizedBox(height: 327.h),
+                          const TermsText(),
+                        ],
+                      );
+                    },
                   ),
                 ),
-                child: ListView(
-                  children: [
-                    const SizedBox(height: 60),
-                    const Text(
-                      "travela",
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    const Text(
-                      "Email address",
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                    const SizedBox(height: 4),
-                    CustomTextField(
-                      controller: emailController,
-                      label: "Email address",
-                    ),
-                    const SizedBox(height: 24),
-                    CustomButton(
-                      label: "",
-                      label2: "Login",
-                      onTap: () {
-                        final email = emailController.text.trim();
-                        context.read<LoginCubit>().login(email);
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Don't have an account? ",
-                            style: TextStyle(color: Colors.white60),
-                          ),
-                          GestureDetector(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const SignUpScreen(),
-                              ),
-                            ),
-                            child: const Text(
-                              "Sign Up",
-                              style: TextStyle(color: Color(0xFFFFC727)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/custon_button.dart';
 import '../bloc/signup_cubit.dart';
 
 import 'otp_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/custom_textfield.dart';
-import '../widgets/custom_button.dart';
+
 import '../../data/auth_repository.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -86,9 +87,9 @@ class SignUpScreen extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 24),
-                    CustomButton(
+                    CustonButton(
                       label: "",
-                      label2: "Sign Up",
+
                       onTap: () {
                         context.read<SignUpCubit>().signUp(
                           fullName: nameController.text.trim(),

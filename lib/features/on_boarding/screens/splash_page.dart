@@ -10,8 +10,7 @@ class SplashPage extends StatelessWidget {
   Future<void> _navigate(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2));
     final prefs = await SharedPreferences.getInstance();
-    final isFirstLaunch =
-        prefs.getBool('onboarding_complete') != false; //! dont forget to make
+    final isFirstLaunch = prefs.getBool('onboarding_complete') != true;
     final token = prefs.getString('token');
     if (isFirstLaunch) {
       Navigator.of(context).pushReplacementNamed('/onboarding');

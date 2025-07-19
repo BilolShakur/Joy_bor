@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/custon_button.dart';
 import '../bloc/otp_cubit.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../home/presentation/pages/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widgets/custom_button.dart';
+
 import '../../data/auth_repository.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -104,9 +105,9 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
               ),
 
               const SizedBox(height: 24),
-              CustomButton(
+              CustonButton(
                 label: "",
-                label2: "Tasdiqlash",
+
                 onTap: () {
                   if (otpCode.length != 6) {
                     ScaffoldMessenger.of(context).showSnackBar(
