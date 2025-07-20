@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:joy_bor/core/constants/app_images.dart';
+import 'package:joy_bor/features/auth/presentation/bloc/login_cubit.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/arrow_back_leading.dart';
 import 'package:joy_bor/features/auth/presentation/widgets/custon_button.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/dont_have_text.dart';
+import 'package:joy_bor/features/auth/presentation/widgets/terms_text.dart';
 import '../bloc/signup_cubit.dart';
 
 import 'otp_page.dart';
@@ -14,13 +20,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nameController = TextEditingController();
     final emailController = TextEditingController();
-    final phoneController = TextEditingController();
-    final countryController = TextEditingController();
-    final cityController = TextEditingController();
-    final zipController = TextEditingController();
-    final addressController = TextEditingController();
+
     return BlocProvider(
       create: (_) => SignUpCubit(AuthRepository()),
       child: BlocListener<SignUpCubit, SignUpState>(
@@ -42,106 +43,138 @@ class SignUpScreen extends StatelessWidget {
         child: BlocBuilder<SignUpCubit, SignUpState>(
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: Colors.black,
-              body: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: ListView(
-                  children: [
-                    const SizedBox(height: 40),
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      "Create Your Account",
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+              extendBodyBehindAppBar: true,
 
-                    CustomTextField(
-                      controller: nameController,
-                      label: "Full Name",
-                    ),
-                    CustomTextField(
-                      controller: emailController,
-                      label: "Email",
-                    ),
-                    CustomTextField(
-                      controller: phoneController,
-                      label: "Phone Number",
-                    ),
-                    CustomTextField(
-                      controller: countryController,
-                      label: "Country",
-                    ),
-                    CustomTextField(controller: cityController, label: "City"),
-                    CustomTextField(controller: zipController, label: "Zip"),
-                    CustomTextField(
-                      controller: addressController,
-                      label: "Address",
-                    ),
-
-                    const SizedBox(height: 24),
-                    CustonButton(
-                      label: "",
-
-                      onTap: () {
-                        context.read<SignUpCubit>().signUp(
-                          fullName: nameController.text.trim(),
-                          email: emailController.text.trim(),
-                          phoneNumber: phoneController.text.trim(),
-                          country: countryController.text.trim(),
-                          city: cityController.text.trim(),
-                          zip: zipController.text.trim(),
-                          address: addressController.text.trim(),
-                        );
-                      },
-                    ),
-
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Already have an account? ",
-                          style: TextStyle(color: Colors.white60),
-                        ),
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(color: Color(0xFFFFC727)),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 24),
-                    const Text.rich(
-                      TextSpan(
-                        text: "By signing up you agree to our ",
-                        children: [
-                          TextSpan(
-                            text: "Terms ",
-                            style: TextStyle(color: Color(0xFFFFC727)),
-                          ),
-                          TextSpan(text: "and "),
-                          TextSpan(
-                            text: "Conditions of Use",
-                            style: TextStyle(color: Color(0xFFFFC727)),
-                          ),
-                        ],
-                      ),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white54),
-                    ),
-                  ],
+              appBar: AppBar(
+                leadingWidth: 300.w,
+                backgroundColor: Colors.transparent,
+                leading: Padding(
+                  padding: EdgeInsets.only(left: 22.w),
+                  child: Row(children: [ArrowBackLeading()]),
                 ),
+              ),
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(AppImages.bg, fit: BoxFit.cover),
+                  ),
+
+                  SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: BlocBuilder<LoginCubit, LoginState>(
+                        builder: (context, state) {
+                          final isLoading = state is LoginLoading;
+
+                          return Column(
+                            children: [
+                              SizedBox(height: 16.h),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Create Your Account",
+                                    style: TextStyle(
+                                      fontSize: 24.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 24.h),
+                                  Text(
+                                    "Enter name",
+                                    style: TextStyle(fontSize: 15.sp),
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  CustomTextField(
+                                    controller: emailController,
+                                    label: "John soen",
+                                  ),
+                                  SizedBox(height: 14.h),
+                                  Text(
+                                    "Email address",
+                                    style: TextStyle(fontSize: 15.sp),
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  CustomTextField(
+                                    controller: emailController,
+                                    label: "Email address",
+                                  ),
+                                  SizedBox(height: 14.h),
+                                  Text(
+                                    "Password",
+                                    style: TextStyle(fontSize: 15.sp),
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  CustomTextField(
+                                    obscureText: true,
+                                    controller: emailController,
+                                    label: "Password",
+                                  ),
+                                  SizedBox(height: 20.h),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        iconSize: 30.h,
+                                        onPressed: () {},
+                                        icon: Icon(Icons.circle_outlined),
+                                      ),
+                                      Text("Remember Me"),
+                                      Spacer(),
+                                      TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          "Reset Password",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: 20.h),
+
+                              isLoading
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : CustonButton(
+                                      label: "Sign in",
+                                      onTap: () {
+                                        final email = emailController.text
+                                            .trim();
+                                        if (email.isNotEmpty) {
+                                          context.read<LoginCubit>().login(
+                                            email,
+                                          );
+                                        } else {
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                "Enter your email.",
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                              SizedBox(height: 10.h),
+                              DontHaveText(
+                                firstText: "Already have an account ?",
+                                textbutton: "Sign in here",
+                                ontap: () {},
+                              ),
+                              SizedBox(height: 113.h),
+                              const TermsText(),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             );
           },
