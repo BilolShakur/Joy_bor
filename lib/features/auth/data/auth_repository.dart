@@ -24,7 +24,7 @@ class AuthRepository {
     }
   }
 
-  /// Create a new user
+
   Future<bool> createUser({
     required String email,
     required String phoneNumber,
@@ -59,7 +59,7 @@ class AuthRepository {
     }
   }
 
-  /// Send OTP to email
+
   Future<bool> sendOtp(String email) async {
     final url = Uri.parse('$baseUrl/auth/send-otp');
     try {
@@ -74,7 +74,7 @@ class AuthRepository {
     }
   }
 
-  /// Verify OTP and get tokens
+
   Future<Map<String, dynamic>?> verifyOtp({
     required String email,
     required String otp,

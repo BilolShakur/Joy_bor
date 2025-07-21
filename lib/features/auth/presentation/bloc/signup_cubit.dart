@@ -21,34 +21,14 @@ class SignUpCubit extends Cubit<SignUpState> {
   final AuthRepository repository;
   SignUpCubit(this.repository) : super(SignUpInitial());
 
-  Future<void> signUp({
-    required String email,
-    required String phoneNumber,
-    required String fullName,
-    required String country,
-    required String city,
-    required String zip,
-    required String address,
-    String? googleId,
-    String? imgUrl,
-  }) async {
+  Future<void> signUp({required String email}) async {
     emit(SignUpLoading());
     final isRegistered = await repository.checkRegister(email);
     if (isRegistered) {
       emit(SignUpError('Bu email allaqachon ro‘yxatdan o‘tgan.'));
       return;
     }
-    final created = await repository.createUser(
-      email: email,
-      phoneNumber: phoneNumber,
-      fullName: fullName,
-      country: country,
-      city: city,
-      zip: zip,
-      address: address,
-      googleId: googleId,
-      imgUrl: imgUrl,
-    );
+    final created = await repository.sendOtp(email);
     if (!created) {
       emit(SignUpError('Foydalanuvchi yaratishda xatolik.'));
       return;

@@ -9,9 +9,11 @@ class SplashPage extends StatelessWidget {
 
   Future<void> _navigate(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2));
+    if (!context.mounted) return;
     final prefs = await SharedPreferences.getInstance();
     final isFirstLaunch = prefs.getBool('onboarding_complete') != true;
     final token = prefs.getString('token');
+
     if (isFirstLaunch) {
       Navigator.of(context).pushReplacementNamed('/onboarding');
     } else if (token != null) {
@@ -24,13 +26,18 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => _navigate(context));
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(AppImages.bg),
-
-          Center(child: Image.asset(AppImages.logo, width: 170, height: 40)),
+          Image.asset(AppImages.bg, fit: BoxFit.cover),
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [Image.asset(AppImages.logo, width: 170, height: 40)],
+            ),
+          ),
         ],
       ),
     );
