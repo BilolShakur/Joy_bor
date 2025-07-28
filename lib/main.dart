@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/features/home/presentation/bloc/product_event.dart';
+import 'package:joy_bor/features/profile/presentation/screen/my_profile_screen.dart';
 import 'features/home/presentation/pages/home_page.dart';
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/auth/presentation/pages/signup_page.dart';
@@ -119,13 +120,14 @@ class MyApp extends StatelessWidget {
           title: 'JoyBor',
           debugShowCheckedModeBanner: false,
           theme: ThemeData.dark(),
-          initialRoute: '/splash',
+          initialRoute: '/MyProfile',
           routes: {
             '/splash': (context) => SplashPage(),
             '/onboarding': (context) => OnboardingPage(),
             '/Login': (context) => LoginScreen(),
             '/signup': (context) => const SignUpScreen(),
             '/home': (context) => HomePage(),
+            '/MyProfile': (context) => MyProfileScreen(),
           },
         ),
       ),

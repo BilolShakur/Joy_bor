@@ -28,7 +28,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(SignUpError('Bu email allaqachon ro‘yxatdan o‘tgan.'));
       return;
     }
-  
+
     final otpSent = await repository.sendOtp(email);
     if (otpSent) {
       emit(SignUpOtpSent(email));
