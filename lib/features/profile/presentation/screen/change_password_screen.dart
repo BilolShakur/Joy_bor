@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joy_bor/core/constants/app_images.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -6,16 +7,10 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/Ellipse.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          color: Colors.black.withOpacity(0.7),
-          child: SafeArea(
+      body: Stack(
+        children: [
+          Positioned.fill(child: Image.asset(AppImages.bg)),
+          SafeArea(
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return SingleChildScrollView(
@@ -43,7 +38,7 @@ class ChangePasswordScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 40),
-
+          
                             const Text(
                               "Current Password",
                               style: TextStyle(
@@ -53,9 +48,9 @@ class ChangePasswordScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             _customInput("Enter current password"),
-
+          
                             const SizedBox(height: 20),
-
+          
                             const Text(
                               "New Password",
                               style: TextStyle(
@@ -65,9 +60,9 @@ class ChangePasswordScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             _customInput("Enter new password"),
-
+          
                             const SizedBox(height: 20),
-
+          
                             const Text(
                               "Confirm Password",
                               style: TextStyle(
@@ -77,7 +72,7 @@ class ChangePasswordScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             _customInput("Re-enter new password"),
-
+          
                             const Spacer(), // Bu joy asosiy muammo bo‘lishi mumkin
                             ElevatedButton(
                               onPressed: () {},
@@ -97,7 +92,7 @@ class ChangePasswordScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-
+          
                             const SizedBox(height: 24),
                           ],
                         ),
@@ -108,7 +103,7 @@ class ChangePasswordScreen extends StatelessWidget {
               },
             ),
           ),
-        ),
+        ],
       ),
     );
   }

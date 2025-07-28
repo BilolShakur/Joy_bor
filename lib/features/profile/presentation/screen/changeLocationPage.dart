@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joy_bor/core/constants/app_images.dart';
 
 class ChangeLocationPage extends StatelessWidget {
   const ChangeLocationPage({super.key});
@@ -8,12 +9,8 @@ class ChangeLocationPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset(
-            'assets/Ellipse.png',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+          Positioned.fill(child: Image.asset(AppImages.bg)),
+          
           Container(color: Colors.black.withOpacity(0.7)),
           SafeArea(
             child: Padding(

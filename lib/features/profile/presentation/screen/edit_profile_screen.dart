@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joy_bor/core/constants/app_images.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({super.key});
@@ -8,14 +9,7 @@ class EditProfilePage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/Ellipse.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          Positioned.fill(child: Image.asset(AppImages.bg)),
 
           Container(color: Colors.black.withOpacity(0.5)),
 
@@ -80,7 +74,7 @@ class EditProfilePage extends StatelessWidget {
                       Expanded(child: _buildTextField(hint: '90 123 4567')),
                     ],
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 200),
 
                   SizedBox(
                     width: double.infinity,
@@ -92,6 +86,7 @@ class EditProfilePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
+
                       onPressed: () {},
                       child: const Text(
                         'Update Profile',

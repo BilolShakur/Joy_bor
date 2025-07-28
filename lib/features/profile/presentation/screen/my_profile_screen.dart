@@ -7,6 +7,7 @@ import 'package:joy_bor/features/notification/presentation/pages/notification_sc
 import 'package:joy_bor/features/profile/presentation/screen/changeLocationPage.dart';
 import 'package:joy_bor/features/profile/presentation/screen/change_password_screen.dart';
 import 'package:joy_bor/features/profile/presentation/screen/edit_profile_screen.dart';
+import 'package:joy_bor/features/profile/presentation/screen/language_screen.dart';
 import 'package:joy_bor/features/profile/presentation/widgets/circle_avatar.dart';
 import 'package:joy_bor/features/profile/presentation/widgets/profile_row.dart';
 
@@ -107,6 +108,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       icon: Icon(Icons.notifications),
                     ),
                     ProfileRowItem(
+                      to: LanguageScreen(),
                       title: "Language",
                       icon: Icon(Icons.language),
                     ),
