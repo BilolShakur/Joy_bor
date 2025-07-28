@@ -123,7 +123,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/splash': (context) => SplashPage(),
             '/onboarding': (context) => OnboardingPage(),
-            '/': (context) => LoginScreen(),
+            '/Login': (context) => LoginScreen(),
             '/signup': (context) => const SignUpScreen(),
             '/home': (context) => HomePage(),
           },

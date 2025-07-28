@@ -17,6 +17,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final PageController controller = PageController();
   int index = 0;
 
+  Future<void> skip() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboarding_complete', true);
+    final token = prefs.getString('token');
+    if (token != null) {
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      Navigator.pushReplacementNamed(context, '/Login');
+    }
+  }
+
   Future<void> nextPage() async {
     if (index < onboardingData.length - 1) {
       controller.nextPage(
@@ -30,7 +41,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       if (token != null) {
         Navigator.pushReplacementNamed(context, '/home');
       } else {
-        Navigator.pushReplacementNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/Login');
       }
     }
   }
@@ -67,7 +78,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SecondaryButton(label: "Skip", onTap: nextPage),
+                SecondaryButton(label: "Skip", onTap: skip),
 
                 PrimaryButton(
                   label: index == onboardingData.length - 1
