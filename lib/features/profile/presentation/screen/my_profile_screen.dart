@@ -3,6 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
 import 'package:joy_bor/core/constants/app_images.dart';
 import 'package:joy_bor/features/auth/presentation/widgets/arrow_back_leading.dart';
+import 'package:joy_bor/features/notification/presentation/pages/notification_screen.dart';
+import 'package:joy_bor/features/profile/presentation/screen/changeLocationPage.dart';
+import 'package:joy_bor/features/profile/presentation/screen/change_password_screen.dart';
 import 'package:joy_bor/features/profile/presentation/screen/edit_profile_screen.dart';
 import 'package:joy_bor/features/profile/presentation/widgets/circle_avatar.dart';
 import 'package:joy_bor/features/profile/presentation/widgets/profile_row.dart';
@@ -77,6 +80,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       icon: Icon(Icons.bed),
                     ),
                     ProfileRowItem(
+                      to: ChangeLocationPage(),
                       title: "My Lcoation",
                       icon: Icon(Icons.location_pin),
                     ),
@@ -87,6 +91,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 ProfileRow(
                   items: [
                     ProfileRowItem(
+                      to: ChangePasswordScreen(),
                       title: "Change Password",
                       icon: Icon(Icons.lock_outline_rounded),
                     ),
@@ -97,6 +102,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 ProfileRow(
                   items: [
                     ProfileRowItem(
+                      to: NotificationScreen(),
                       title: "Notifications",
                       icon: Icon(Icons.notifications),
                     ),

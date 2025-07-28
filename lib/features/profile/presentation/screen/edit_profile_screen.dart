@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:joy_bor/core/constants/app_images.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({super.key});
@@ -9,7 +8,14 @@ class EditProfilePage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(child: Image.asset(AppImages.bg, fit: BoxFit.cover)),
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/Ellipse.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
 
           Container(color: Colors.black.withOpacity(0.5)),
 
