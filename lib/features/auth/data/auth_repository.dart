@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
-  final String baseUrl = 'http://13.232.21.244:3000/api';
+  final String baseUrl = 'http://13.232.21.244:3001/api';
 
   /// Check if user is registered
   Future<bool> checkRegister(String email) async {
@@ -23,7 +23,6 @@ class AuthRepository {
       return false;
     }
   }
-
 
   Future<bool> createUser({
     required String email,
@@ -59,7 +58,6 @@ class AuthRepository {
     }
   }
 
-
   Future<bool> sendOtp(String email) async {
     final url = Uri.parse('$baseUrl/auth/send-otp');
     try {
@@ -73,7 +71,6 @@ class AuthRepository {
       return false;
     }
   }
-
 
   Future<Map<String, dynamic>?> verifyOtp({
     required String email,
