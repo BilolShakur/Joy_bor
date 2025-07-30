@@ -8,6 +8,7 @@ import 'package:joy_bor/features/profile/presentation/screen/changeLocationPage.
 import 'package:joy_bor/features/profile/presentation/screen/change_password_screen.dart';
 import 'package:joy_bor/features/profile/presentation/screen/edit_profile_screen.dart';
 import 'package:joy_bor/features/profile/presentation/screen/language_screen.dart';
+import 'package:joy_bor/features/profile/presentation/screen/terms_screen.dart';
 import 'package:joy_bor/features/profile/presentation/widgets/circle_avatar.dart';
 import 'package:joy_bor/features/profile/presentation/widgets/profile_row.dart';
 
@@ -76,10 +77,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       icon: Icon(Icons.person),
                       to: EditProfilePage(),
                     ),
-                    ProfileRowItem(
-                      title: "E'lon joylash",
-                      icon: Icon(Icons.bed),
-                    ),
+
                     ProfileRowItem(
                       to: ChangeLocationPage(),
                       title: "My Lcoation",
@@ -113,6 +111,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       icon: Icon(Icons.language),
                     ),
                     ProfileRowItem(
+                      to: TermsScreen(),
                       title: "Help and support",
                       icon: Icon(Icons.help_outline),
                     ),

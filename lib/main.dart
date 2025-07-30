@@ -120,7 +120,7 @@ class MyApp extends StatelessWidget {
           title: 'JoyBor',
           debugShowCheckedModeBanner: false,
           theme: ThemeData.dark(),
-          initialRoute: '/MyProfile',
+          initialRoute: '/splash',
           routes: {
             '/splash': (context) => SplashPage(),
             '/onboarding': (context) => OnboardingPage(),
