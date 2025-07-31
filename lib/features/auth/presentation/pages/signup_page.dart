@@ -102,7 +102,7 @@ class SignUpScreen extends StatelessWidget {
                               SizedBox(height: 8.h),
                               CustomTextField(
                                 controller: passwordController,
-                                label: "Password".tr(),
+                                label: "password".tr(),
                                 obscureText: true,
                               ),
                               SizedBox(height: 20.h),
@@ -111,7 +111,7 @@ class SignUpScreen extends StatelessWidget {
                           isLoading
                               ? CircularProgressIndicator(color: Colors.white)
                               : CustonButton(
-                                  label: "Sign Up",
+                                  label: "sign_up".tr(),
                                   onTap: () {
                                     final name = nameController.text.trim();
                                     final email = emailController.text.trim();
@@ -137,8 +137,8 @@ class SignUpScreen extends StatelessWidget {
                                 ),
                           SizedBox(height: 10.h),
                           DontHaveText(
-                            firstText: "Already have an account?",
-                            textbutton: "Sign in here",
+                            firstText: "already_have_account".tr(),
+                            textbutton: "sign_in_here".tr(),
                             ontap: () {},
                           ),
                           SizedBox(height: 113.h),

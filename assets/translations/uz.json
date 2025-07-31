@@ -18,6 +18,7 @@
   "password": "Parol",
   "remember_me": "Meni eslab qoling",
   "reset_password": "Parolni tiklash",
+  "already_have_account": "Allaqachon hisobingiz bormi?",
   "sign_up": "Ro‘yxatdan o‘tish",
   "dont_have_account": "Hisobingiz yo‘qmi?",
   "terms_and_conditions": "Ro‘yxatdan o‘tish orqali siz bizning Foydalanish Shartlari va Qoidalari bilan rozi bo‘lasiz",
@@ -67,5 +68,10 @@
   "croatian": "Xorvat tili",
   "czech": "Chex tili",
   "danish": "Daniya tili",
-  "filipino": "Filippin tili"
+  "filipino": "Filippin tili",
+   "signup_agree": "Ro‘yxatdan o‘tish orqali siz quyidagilarga rozilik bildirasiz:",
+  "terms": "Shartlar",
+  "and": "va",
+  "conditions": "Foydalanish shartlari",
+      "sign_in_here": "Bu yerdan kiring"
 }

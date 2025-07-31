@@ -25,6 +25,7 @@
   "home": "Home",
   "apartment": "Apartment",
   "homestay": "Homestay",
+  "already_have_account": "Already have an account?",
   "villa": "Villa",
   "townhouse": "Townhouse",
   "condo": "Condo",
@@ -67,5 +68,10 @@
   "croatian": "Croatian",
   "czech": "Czech",
   "danish": "Danish",
-  "filipino": "Filipino"
+  "filipino": "Filipino",
+  "signup_agree": "By signing up you agree to our",
+  "terms": "Terms",
+  "and": "and",
+  "conditions": "Conditions of Use",
+   "sign_in_here": "Sign in here"
 }
