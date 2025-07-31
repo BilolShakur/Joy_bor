@@ -64,13 +64,14 @@ Future<void> main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [
-        Locale('en'),
+        Locale('kk'),
         Locale('ru'),
         Locale('uz'),
-        Locale('kk'),
+        Locale('en'),
       ],
       path: 'assets/translations',
-      fallbackLocale: Locale('en'),
+      fallbackLocale: Locale('kk'),
+      startLocale: Locale('kk'),
       child: MyApp(
         isLoggedIn: token != null,
         getAllProducts: getAllProducts,
@@ -135,7 +136,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          initialRoute: '/MyProfile',
+          initialRoute: '/splash',
           routes: {
             '/splash': (context) => SplashPage(),
             '/onboarding': (context) => OnboardingPage(),

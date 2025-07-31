@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/features/on_boarding/widgets/custom_button.dart';
@@ -78,12 +79,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SecondaryButton(label: "Skip", onTap: skip),
+                SecondaryButton(label: "skip".tr(), onTap: skip),
 
                 PrimaryButton(
                   label: index == onboardingData.length - 1
-                      ? "Get Started"
-                      : "Next",
+                      ? "get_started".tr()
+                      : "next".tr(),
                   onTap: nextPage,
                 ),
               ],

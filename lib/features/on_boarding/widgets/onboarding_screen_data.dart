@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/constants/app_images.dart';
@@ -6,21 +7,18 @@ import 'package:flutter/material.dart';
 
 final List<OnboardingEntities> onboardingData = [
   OnboardingEntities(
-    title: 'Where do you want to discover?',
-    subtitle: """We've got everything you need 
-to go big in 2023.""",
+    title: 'onboarding_1_title'.tr(),
+    subtitle: "onboarding_subtitle".tr(),
     image: AppImages.onboarding1,
   ),
   OnboardingEntities(
-    title: 'Which places are you eager to explore?',
-    subtitle: """We've got everything you need
-to go big in 2023.""",
+    title: "onboarding_2_title".tr(),
+    subtitle: "onboarding_subtitle".tr(),
     image: AppImages.onboarding2,
   ),
   OnboardingEntities(
-    title: '""Where do you want to go next?',
-    subtitle: """We've got everything you need
-to go big in 2023.""",
+    title: 'onboarding_3_title'.tr(),
+    subtitle: "onboarding_subtitle".tr(),
     image: AppImages.onboarding3,
   ),
 ];

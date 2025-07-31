@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
@@ -58,7 +59,12 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 LanguageRow(onChoice: () {}, title: "O'zbekcha"),
                 LanguageRow(onChoice: () {}, title: "Русский"),
                 LanguageRow(onChoice: () {}, title: "English"),
-                LanguageRow(onChoice: () {}, title: "Қазақша"),
+                LanguageRow(
+                  onChoice: () {
+                    context.setLocale(Locale('kk'));
+                  },
+                  title: "Қазақша",
+                ),
               ],
             ),
           ),

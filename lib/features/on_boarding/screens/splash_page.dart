@@ -19,7 +19,7 @@ class SplashPage extends StatelessWidget {
     } else if (token != null) {
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
-      Navigator.of(context).pushReplacementNamed('/Login');
+      Navigator.of(context).pushReplacementNamed('/onboarding');
     }
   }
 

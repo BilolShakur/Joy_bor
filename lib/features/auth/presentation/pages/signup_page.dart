@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,7 +68,7 @@ class SignUpScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Create Your Account",
+                                "create_account".tr(),
                                 style: TextStyle(
                                   fontSize: 24.sp,
                                   fontWeight: FontWeight.bold,
@@ -75,7 +76,7 @@ class SignUpScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 24.h),
                               Text(
-                                "Enter name",
+                                "enter_your_email".tr(),
                                 style: TextStyle(fontSize: 15.sp),
                               ),
                               SizedBox(height: 8.h),
@@ -85,23 +86,23 @@ class SignUpScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 14.h),
                               Text(
-                                "Email address",
+                                "email_address".tr(),
                                 style: TextStyle(fontSize: 15.sp),
                               ),
                               SizedBox(height: 8.h),
                               CustomTextField(
                                 controller: emailController,
-                                label: "Email address",
+                                label: "email_address".tr(),
                               ),
                               SizedBox(height: 14.h),
                               Text(
-                                "Password",
+                                "password".tr(),
                                 style: TextStyle(fontSize: 15.sp),
                               ),
                               SizedBox(height: 8.h),
                               CustomTextField(
                                 controller: passwordController,
-                                label: "Password",
+                                label: "Password".tr(),
                                 obscureText: true,
                               ),
                               SizedBox(height: 20.h),
