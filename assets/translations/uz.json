@@ -84,5 +84,20 @@
   "personal_info": "Shaxsiy ma'lumotlar",
 "security": "Xavfsizlik",
 "general": "Umumiy",
-"logout": "Chiqish"
+"logout": "Chiqish",
+ "delete_account": "Hisobni o‘chirish",
+  "privacy_policy": "Maxfiylik siyosati",
+  "profile_picture": "Profil rasmi",
+  "change_email": "Emailni o‘zgartirish",
+  "change_phone": "Telefon raqamini o‘zgartirish",
+  "account_settings": "Hisob sozlamalari",
+  "app_settings": "Ilova sozlamalari",
+  "dark_mode": "Qorong‘i rejim",
+  "light_mode": "Yorug‘ rejim",
+  "help_center": "Yordam markazi",
+  "about_us": "Biz haqimizda",
+  "contact_us": "Biz bilan bog‘laning",
+  "feedback": "Fikr bildiring",
+  "rate_us": "Bizni baholang",
+  "support": "Qo‘llab-quvvatlash"
 }

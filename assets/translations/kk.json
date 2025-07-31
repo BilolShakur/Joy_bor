@@ -84,5 +84,20 @@
   "personal_info": "Жеке ақпарат",
 "security": "Қауіпсіздік",
 "general": "Жалпы",
-"logout": "Шығу"
+"logout": "Шығу",
+ "delete_account": "Есепті жою",
+  "privacy_policy": "Құпиялылық саясаты",
+  "profile_picture": "Профиль суреті",
+  "change_email": "Электрондық пошта өзгерту",
+  "change_phone": "Телефон нөмірін өзгерту",
+  "account_settings": "Аккаунт параметрлері",
+  "app_settings": "Қосымша параметрлері",
+  "dark_mode": "Қараңғы режим",
+  "light_mode": "Жарық режим",
+  "help_center": "Көмек орталығы",
+  "about_us": "Біз туралы",
+  "contact_us": "Бізбен байланыс",
+  "feedback": "Пікір білдіру",
+  "rate_us": "Бізге баға беру",
+  "support": "Қолдау"
 }

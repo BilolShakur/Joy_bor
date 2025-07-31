@@ -84,6 +84,21 @@
   "personal_info": "Personal Info",
 "security": "Security",
 "general": "General",
-"logout": "Logout"
+"logout": "Logout",
+ "delete_account": "Delete account",
+  "privacy_policy": "Privacy Policy",
+  "profile_picture": "Profile picture",
+  "change_email": "Change email",
+  "change_phone": "Change phone number",
+  "account_settings": "Account settings",
+  "app_settings": "App settings",
+  "dark_mode": "Dark Mode",
+  "light_mode": "Light Mode",
+  "help_center": "Help Center",
+  "about_us": "About us",
+  "contact_us": "Contact us",
+  "feedback": "Feedback",
+  "rate_us": "Rate us",
+  "support": "Support"
   
 }

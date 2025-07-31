@@ -85,6 +85,21 @@
   "personal_info": "Личная информация",
 "security": "Безопасность",
 "general": "Общие",
-"logout": "Выйти"
+"logout": "Выйти",
+  "delete_account": "Удалить аккаунт",
+  "privacy_policy": "Политика конфиденциальности",
+  "profile_picture": "Фото профиля",
+  "change_email": "Изменить email",
+  "change_phone": "Изменить номер телефона",
+  "account_settings": "Настройки аккаунта",
+  "app_settings": "Настройки приложения",
+  "dark_mode": "Тёмная тема",
+  "light_mode": "Светлая тема",
+  "help_center": "Центр поддержки",
+  "about_us": "О нас",
+  "contact_us": "Свяжитесь с нами",
+  "feedback": "Обратная связь",
+  "rate_us": "Оцените нас",
+  "support": "Поддержка"
 
 }
