@@ -85,4 +85,19 @@ class LocaleKeys {
   static String get security => tr('security');
   static String get general => tr('general');
   static String get logout => tr('logout');
+  static String get deleteAccount => tr('delete_account');
+  static String get privacyPolicy => tr('privacy_policy');
+  static String get profilePicture => tr('profile_picture');
+  static String get changeEmail => tr('change_email');
+  static String get changePhone => tr('change_phone');
+  static String get accountSettings => tr('account_settings');
+  static String get appSettings => tr('app_settings');
+  static String get darkMode => tr('dark_mode');
+  static String get lightMode => tr('light_mode');
+  static String get helpCenter => tr('help_center');
+  static String get aboutUs => tr('about_us');
+  static String get contactUs => tr('contact_us');
+  static String get feedback => tr('feedback');
+  static String get rateUs => tr('rate_us');
+  static String get support => tr('support');
 }

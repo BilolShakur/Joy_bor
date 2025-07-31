@@ -40,41 +40,41 @@ class ChangePasswordScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 40),
 
-                            const Text(
-                              "Current Password",
+                            Text(
+                              LocaleKeys.currentPassword,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
                               ),
                             ),
                             const SizedBox(height: 8),
-                            _customInput("Enter current password"),
+                            _customInput(LocaleKeys.currentPassword),
 
                             const SizedBox(height: 20),
 
-                            const Text(
-                              "New Password",
+                            Text(
+                              LocaleKeys.newPassword,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
                               ),
                             ),
                             const SizedBox(height: 8),
-                            _customInput("Enter new password"),
+                            _customInput(LocaleKeys.newPassword),
 
                             const SizedBox(height: 20),
 
-                            const Text(
-                              "Confirm Password",
+                            Text(
+                              LocaleKeys.confirmPassword,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
                               ),
                             ),
                             const SizedBox(height: 8),
-                            _customInput("Re-enter new password"),
+                            _customInput(LocaleKeys.confirmPassword),
 
-                            const Spacer(), // Bu joy asosiy muammo bo‘lishi mumkin
+                            const Spacer(),
                             ElevatedButton(
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
@@ -85,8 +85,8 @@ class ChangePasswordScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(14),
                                 ),
                               ),
-                              child: const Text(
-                                "Update",
+                              child: Text(
+                                LocaleKeys.update,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
