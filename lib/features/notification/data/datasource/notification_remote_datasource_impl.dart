@@ -3,7 +3,7 @@ import 'notification_remote_datasource.dart';
 
 class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
   final Dio dio;
-  static const String baseUrl = 'http://13.232.21.244:3000/api';
+  static const String baseUrl = 'http://13.232.21.244:3001/api';
 
   NotificationRemoteDataSourceImpl(this.dio);
 

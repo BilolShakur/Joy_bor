@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/features/home/presentation/bloc/product_event.dart';
 import 'package:joy_bor/features/profile/presentation/screen/my_profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import 'features/home/presentation/pages/home_page.dart';
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/auth/presentation/pages/signup_page.dart';
@@ -11,8 +15,6 @@ import 'features/home/data/datasource/product_remote_datasource_impl.dart';
 import 'features/home/data/repositories/product_repository_impl.dart';
 import 'features/home/domain/usecases/get_all_products.dart';
 import 'features/home/presentation/bloc/product_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'features/place/presentation/bloc/search_bloc/search_bloc.dart';
 import 'features/notification/data/datasource/notification_remote_datasource_impl.dart';
 import 'features/notification/data/repositories/notification_repository_impl.dart';
@@ -30,8 +32,9 @@ import 'features/auth/presentation/bloc/otp_cubit.dart';
 import 'features/on_boarding/screens/splash_page.dart';
 import 'features/on_boarding/screens/onboarding_page.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -50,7 +53,6 @@ void main() async {
   final repository = ProductRepositoryImpl(remoteDatasource);
   final getAllProducts = GetAllProducts(repository);
 
-  // Notification feature dependencies
   final notificationRemoteDatasource = NotificationRemoteDataSourceImpl(dio);
   final notificationRepository = NotificationRepositoryImpl(
     notificationRemoteDatasource,
@@ -60,14 +62,24 @@ void main() async {
   final postNotification = PostNotification(notificationRepository);
 
   runApp(
-    MyApp(
-      isLoggedIn: token != null,
-      getAllProducts: getAllProducts,
-      repository: repository,
-      getAllNotifications: getAllNotifications,
-      getNotificationById: getNotificationById,
-      postNotification: postNotification,
-      flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ru'),
+        Locale('uz'),
+        Locale('kk'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: Locale('en'),
+      child: MyApp(
+        isLoggedIn: token != null,
+        getAllProducts: getAllProducts,
+        repository: repository,
+        getAllNotifications: getAllNotifications,
+        getNotificationById: getNotificationById,
+        postNotification: postNotification,
+        flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
+      ),
     ),
   );
 }
@@ -120,7 +132,10 @@ class MyApp extends StatelessWidget {
           title: 'JoyBor',
           debugShowCheckedModeBanner: false,
           theme: ThemeData.dark(),
-          initialRoute: '/splash',
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          initialRoute: '/MyProfile',
           routes: {
             '/splash': (context) => SplashPage(),
             '/onboarding': (context) => OnboardingPage(),
