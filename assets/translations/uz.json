@@ -69,9 +69,16 @@
   "czech": "Chex tili",
   "danish": "Daniya tili",
   "filipino": "Filippin tili",
-   "signup_agree": "Ro‘yxatdan o‘tish orqali siz quyidagilarga rozilik bildirasiz:",
+   "signup_agree": "Ro‘yxatdan o‘tish orqali siz quyidagilarga rozilik bildirasiz ",
   "terms": "Shartlar",
-  "and": "va",
+  "and": "va ",
   "conditions": "Foydalanish shartlari",
-      "sign_in_here": "Bu yerdan kiring"
+      "sign_in_here": "Bu yerdan kiring",
+        "otp_title": "Tasdiqlash kodi",
+  "otp_instruction": "E-pochta manzilingizga yuborilgan 6 xonali kodni kiriting.",
+  "otp_continue": "Davom etish",
+  "otp_invalid": "Iltimos, 6 xonali OTP kiriting.",
+  "otp_success": "✅ Ro‘yxatdan muvaffaqiyatli o‘tildi!",
+  "otp_not_received": "Kodni olmadizmi?",
+  "otp_resend": "Kod qayta yuborilsin"
 }

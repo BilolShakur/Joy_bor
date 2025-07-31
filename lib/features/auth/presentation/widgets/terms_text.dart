@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
 
@@ -12,20 +13,17 @@ class TermsText extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "By signing up you agree to our  ",
+              "signup_agree".tr(),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text("Terms", style: TextStyle(color: AppColors.yellow)),
+            Text("terms".tr(), style: TextStyle(color: AppColors.yellow)),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("and  ", style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(
-              "Conditions of Use",
-              style: TextStyle(color: AppColors.yellow),
-            ),
+            Text("and".tr(), style: TextStyle(fontWeight: FontWeight.bold)),
+            Text("conditions".tr(), style: TextStyle(color: AppColors.yellow)),
           ],
         ),
       ],

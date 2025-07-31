@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
@@ -29,11 +30,9 @@ class OtpScreen extends StatelessWidget {
               context,
             ).showSnackBar(SnackBar(content: Text(state.message)));
           } else if (state is OtpSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("✅ Ro‘yxatdan muvaffaqiyatli o‘tildi!"),
-              ),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("otp_success".tr())));
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => HomePage()),
@@ -86,8 +85,8 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Tasdiqlash kodi",
+                  Text(
+                    "otp_title".tr(),
                     style: TextStyle(
                       fontSize: 26,
                       color: Colors.white,
@@ -95,8 +94,8 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "E-pochta manzilingizga yuborilgan 6 xonali kodni kiriting.",
+                  Text(
+                    "otp_instruction".tr(),
                     style: TextStyle(color: Colors.white54),
                   ),
                   const SizedBox(height: 16),
@@ -130,14 +129,12 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
 
                   const SizedBox(height: 24),
                   CustonButton(
-                    label: "Continue",
+                    label: "otp_continue".tr(),
 
                     onTap: () {
                       if (otpCode.length != 6) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Iltimos, 6 xonali OTP kiriting."),
-                          ),
+                          SnackBar(content: Text("otp_invalid".tr())),
                         );
                         return;
                       }
@@ -153,7 +150,7 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Didn't receive a code?"),
+                      Text("otp_not_received".tr()),
                       TextButton(
                         onPressed: () {
                           context.read<SignUpCubit>().signUp(
@@ -161,7 +158,7 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
                           );
                         },
                         child: Text(
-                          "Resend code",
+                          "otp_resend".tr(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: AppColors.yellow,

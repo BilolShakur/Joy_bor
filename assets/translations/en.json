@@ -69,9 +69,16 @@
   "czech": "Czech",
   "danish": "Danish",
   "filipino": "Filipino",
-  "signup_agree": "By signing up you agree to our",
+  "signup_agree": "By signing up you agree to our ",
   "terms": "Terms",
-  "and": "and",
+  "and": "and ",
   "conditions": "Conditions of Use",
-   "sign_in_here": "Sign in here"
+"sign_in_here": "Sign in here",
+ "otp_title": "Verification code",
+  "otp_instruction": "Enter the 6-digit code sent to your email address.",
+  "otp_continue": "Continue",
+  "otp_invalid": "Please enter a 6-digit OTP.",
+  "otp_success": "✅ Successfully registered!",
+  "otp_not_received": "Didn't receive a code?",
+  "otp_resend": "Resend code"
 }
