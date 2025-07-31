@@ -70,8 +70,8 @@ Future<void> main() async {
         Locale('en'),
       ],
       path: 'assets/translations',
-      fallbackLocale: Locale('kk'),
-      startLocale: Locale('kk'),
+      fallbackLocale: Locale('en'),
+      startLocale: Locale('en'),
       child: MyApp(
         isLoggedIn: token != null,
         getAllProducts: getAllProducts,

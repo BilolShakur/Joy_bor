@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                             ontap: onSignIn,
                           ),
                           SizedBox(height: 327.h),
-                          const TermsText(),
+                          SizedBox(child: Row(children: [const TermsText()])),
                         ],
                       );
                     },

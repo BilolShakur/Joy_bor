@@ -9,15 +9,17 @@ class TermsText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "signup_agree".tr(),
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text("terms".tr(), style: TextStyle(color: AppColors.yellow)),
-          ],
+        SizedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "signup_agree".tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("terms".tr(), style: TextStyle(color: AppColors.yellow)),
+            ],
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

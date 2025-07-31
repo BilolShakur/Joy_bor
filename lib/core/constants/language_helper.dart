@@ -1,6 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class LocaleKeys {
+  static var you_can_now_login;
+
+  static var profile_edit_successful;
+
   static String get onboarding1Title => tr('onboarding_1_title');
   static String get onboarding2Title => tr('onboarding_2_title');
   static String get onboarding3Title => tr('onboarding_3_title');

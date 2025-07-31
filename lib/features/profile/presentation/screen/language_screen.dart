@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
 import 'package:joy_bor/core/constants/app_images.dart';
+import 'package:joy_bor/core/constants/language_helper.dart';
 import 'package:joy_bor/features/auth/presentation/widgets/arrow_back_leading.dart';
 import 'package:joy_bor/features/profile/presentation/widgets/language_row.dart';
 
@@ -36,7 +37,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                     ),
                     SizedBox(width: 90.w),
                     Text(
-                      "Language",
+                      LocaleKeys.language,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -47,7 +48,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 ),
                 SizedBox(height: 24),
                 Text(
-                  "Languages",
+                  LocaleKeys.otherLanguages,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -56,9 +57,15 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 ),
                 SizedBox(height: 24),
 
-                LanguageRow(onChoice: () {}, title: "O'zbekcha"),
-                LanguageRow(onChoice: () {}, title: "Русский"),
-                LanguageRow(onChoice: () {}, title: "English"),
+                LanguageRow(onChoice: () {
+                      context.setLocale(Locale('uz'));
+                }, title: "O'zbekcha"),
+                LanguageRow(onChoice: () {
+                      context.setLocale(Locale('ru'));
+                }, title: "Русский"),
+                LanguageRow(onChoice: () {
+                      context.setLocale(Locale('en'));
+                }, title: "English"),
                 LanguageRow(
                   onChoice: () {
                     context.setLocale(Locale('kk'));
