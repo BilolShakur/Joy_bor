@@ -130,7 +130,7 @@ class AuthRepository {
     }
   }
 
-  /// Log out (clear both tokens)
+
   Future<bool> logout() async {
     final url = Uri.parse('$baseUrl/auth/log-out-user');
     try {

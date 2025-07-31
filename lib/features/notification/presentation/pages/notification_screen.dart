@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joy_bor/core/constants/app_images.dart';
 import '../bloc/notification_bloc.dart';
 import '../bloc/notification_state.dart';
 import '../../domain/entities/notification_entity.dart';
@@ -24,9 +25,9 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: BackButton(color: Colors.white),
         title: const Text(
@@ -39,27 +40,33 @@ class NotificationScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<NotificationBloc, NotificationState>(
-        builder: (context, state) {
-          if (state is NotificationLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is NotificationLoaded) {
-            final grouped = groupByDate(state.notifications);
-            return ListView(
-              children: grouped.entries.map((entry) {
-                return _buildSection(entry.key, entry.value);
-              }).toList(),
-            );
-          } else if (state is NotificationError) {
-            return Center(
-              child: Text(
-                state.message,
-                style: const TextStyle(color: Colors.red),
-              ),
-            );
-          }
-          return const SizedBox();
-        },
+      body: Stack(
+        children: [
+          Positioned.fill(child: Image.asset(AppImages.bg)),
+
+          BlocBuilder<NotificationBloc, NotificationState>(
+            builder: (context, state) {
+              if (state is NotificationLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is NotificationLoaded) {
+                final grouped = groupByDate(state.notifications);
+                return ListView(
+                  children: grouped.entries.map((entry) {
+                    return _buildSection(entry.key, entry.value);
+                  }).toList(),
+                );
+              } else if (state is NotificationError) {
+                return Center(
+                  child: Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                );
+              }
+              return const SizedBox();
+            },
+          ),
+        ],
       ),
     );
   }

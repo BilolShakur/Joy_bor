@@ -17,6 +17,10 @@ class SignUpError extends SignUpState {
   SignUpError(this.message);
 }
 
+class logingOut extends SignUpState {}
+
+class logEdOut extends SignUpState {}
+
 class SignUpCubit extends Cubit<SignUpState> {
   final AuthRepository repository;
   SignUpCubit(this.repository) : super(SignUpInitial());
@@ -35,5 +39,11 @@ class SignUpCubit extends Cubit<SignUpState> {
     } else {
       emit(SignUpError('OTP yuborilmadi.'));
     }
+  }
+
+  Future<void> logOut() async {
+    emit(logingOut());
+    await repository.logout();
+    emit(logEdOut());
   }
 }

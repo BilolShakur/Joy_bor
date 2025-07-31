@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
 import 'package:joy_bor/core/constants/app_images.dart';
+import 'package:joy_bor/features/auth/presentation/bloc/signup_cubit.dart';
+import 'package:joy_bor/features/auth/presentation/pages/login_page.dart';
 import 'package:joy_bor/features/auth/presentation/widgets/arrow_back_leading.dart';
 import 'package:joy_bor/features/notification/presentation/pages/notification_screen.dart';
 import 'package:joy_bor/features/profile/presentation/screen/changeLocationPage.dart';
@@ -119,16 +122,31 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   header: 'General',
                 ),
                 SizedBox(height: 24.h),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: AppColors.yellow,
-                    ),
-                  ),
+                BlocConsumer<SignUpCubit, SignUpState>(
+                  listener: (context, state) {
+                    if (state is logEdOut) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (ctx) => LoginScreen()),
+                        (Route<dynamic> route) => false,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return TextButton(
+                      onPressed: () {
+                        context.read<SignUpCubit>().logOut();
+                      },
+                      child: Text(
+                        "Logout",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: AppColors.yellow,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

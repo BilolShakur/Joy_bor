@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joy_bor/features/profile/presentation/screen/my_profile_screen.dart';
 import '../bloc/product_bloc.dart';
 import '../widgets/place_card_large.dart';
 import '../../../../core/constants/app_images.dart';
@@ -24,12 +25,24 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (c) {
+                return MyProfileScreen();
+              },
+            ),
+          );
+        },
+      ),
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset(AppImages.splash3, fit: BoxFit.cover),
+            Image.asset(AppImages.bg, fit: BoxFit.cover),
             BlocBuilder<ProductBloc, ProductState>(
               builder: (context, state) {
                 if (state.isLoading) {
