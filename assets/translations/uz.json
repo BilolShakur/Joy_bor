@@ -80,5 +80,9 @@
   "otp_invalid": "Iltimos, 6 xonali OTP kiriting.",
   "otp_success": "✅ Ro‘yxatdan muvaffaqiyatli o‘tildi!",
   "otp_not_received": "Kodni olmadizmi?",
-  "otp_resend": "Kod qayta yuborilsin"
+  "otp_resend": "Kod qayta yuborilsin",
+  "personal_info": "Shaxsiy ma'lumotlar",
+"security": "Xavfsizlik",
+"general": "Umumiy",
+"logout": "Chiqish"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:joy_bor/core/constants/app_colors.dart';
 import 'package:joy_bor/core/constants/app_images.dart';
 import 'package:joy_bor/features/auth/presentation/bloc/signup_cubit.dart';
@@ -44,7 +45,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     ArrowBackLeading(),
                     SizedBox(width: 105.w),
                     Text(
-                      "Profile",
+                      "my_profile".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.sp,
@@ -76,50 +77,49 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 ProfileRow(
                   items: [
                     ProfileRowItem(
-                      title: "Edit Profile ",
+                      title: "edit_profile".tr(),
                       icon: Icon(Icons.person),
                       to: EditProfilePage(),
                     ),
-
                     ProfileRowItem(
                       to: ChangeLocationPage(),
-                      title: "My Lcoation",
+                      title: "change_location".tr(),
                       icon: Icon(Icons.location_pin),
                     ),
                   ],
-                  header: 'Personal info',
+                  header: 'personal_info'.tr(), // add key to JSON if needed
                 ),
                 SizedBox(height: 16.h),
                 ProfileRow(
                   items: [
                     ProfileRowItem(
                       to: ChangePasswordScreen(),
-                      title: "Change Password",
+                      title: "change_password".tr(),
                       icon: Icon(Icons.lock_outline_rounded),
                     ),
                   ],
-                  header: 'Security',
+                  header: 'security'.tr(), // add key to JSON if needed
                 ),
                 SizedBox(height: 16.h),
                 ProfileRow(
                   items: [
                     ProfileRowItem(
                       to: NotificationScreen(),
-                      title: "Notifications",
+                      title: "notification".tr(),
                       icon: Icon(Icons.notifications),
                     ),
                     ProfileRowItem(
                       to: LanguageScreen(),
-                      title: "Language",
+                      title: "language".tr(),
                       icon: Icon(Icons.language),
                     ),
                     ProfileRowItem(
                       to: TermsScreen(),
-                      title: "Help and support",
+                      title: "terms_and_conditions_full".tr(),
                       icon: Icon(Icons.help_outline),
                     ),
                   ],
-                  header: 'General',
+                  header: 'general'.tr(), // add key to JSON if needed
                 ),
                 SizedBox(height: 24.h),
                 BlocConsumer<SignUpCubit, SignUpState>(
@@ -138,7 +138,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         context.read<SignUpCubit>().logOut();
                       },
                       child: Text(
-                        "Logout",
+                        "logout"
+                            .tr(), // add this to your JSON: "logout": "Logout"
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.sp,

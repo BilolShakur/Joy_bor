@@ -80,5 +80,10 @@
   "otp_invalid": "Please enter a 6-digit OTP.",
   "otp_success": "✅ Successfully registered!",
   "otp_not_received": "Didn't receive a code?",
-  "otp_resend": "Resend code"
+  "otp_resend": "Resend code",
+  "personal_info": "Personal Info",
+"security": "Security",
+"general": "General",
+"logout": "Logout"
+  
 }
